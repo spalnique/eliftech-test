@@ -1,26 +1,32 @@
 {
-  "extends": "../../tsconfig.base.json",
   "compilerOptions": {
-    "target": "ES2020",
     "module": "ESNext",
     "useDefineForClassFields": true,
     "lib": ["ES2020", "DOM", "DOM.Iterable"],
     "types": ["node", "react", "react-dom"],
-    "skipLibCheck": true,
 
     /* Bundler mode */
     "moduleResolution": "bundler",
-    "allowImportingTsExtensions": true,
     "isolatedModules": true,
     "moduleDetection": "force",
-    "noEmit": true,
     "jsx": "react-jsx",
 
     /* Linting */
+    "noFallthroughCasesInSwitch": true,
+    "target": "ES2020",
+    "allowJs": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "noEmit": true,
+    "allowImportingTsExtensions": true,
     "strict": true,
+    "baseUrl": "src",
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "noFallthroughCasesInSwitch": true
+    "paths": {
+      "@shared/types": ["../../shared/types/index.ts"]
+    }
   },
-  "include": ["src"]
+  "include": ["src", "../shared/**/*"]
 }
