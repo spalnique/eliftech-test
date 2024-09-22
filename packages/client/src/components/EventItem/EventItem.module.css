@@ -1,0 +1,7 @@
+.eventItem {
+  flex-basis: calc((100% - 3 * 50px) / 4);
+  height: 200px;
+  min-width: 200px;
+  max-width: 300px;
+  border: 1px solid darkgray;
+}

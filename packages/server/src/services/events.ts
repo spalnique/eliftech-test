@@ -1,15 +1,15 @@
 import EventModel from '../db/models/event.ts';
 import { calculatePaginationData } from '../utils/calculatePaginationData.ts';
 
-export const getEvents = async (page: number = 1, limit: number = 12) => {
-  const skip = (page - 1) * limit;
+export const getEvents = async (page: number = 1, perPage: number = 12) => {
+  const skip = (page - 1) * perPage;
 
   const [totalEvents, events] = await Promise.all([
-    EventModel.find().countDocuments(),
-    EventModel.find().skip(skip).limit(limit).exec(),
+    EventModel.countDocuments(),
+    EventModel.find().skip(skip).limit(perPage).exec(),
   ]);
 
-  const pagination = calculatePaginationData(totalEvents, page, limit);
+  const pagination = calculatePaginationData(totalEvents, page, perPage);
 
   return { data: events, ...pagination };
 };

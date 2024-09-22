@@ -14,6 +14,8 @@ const eventSchema = new Schema<IEventDocument>(
   {
     timestamps: true,
     versionKey: false,
+    id: true,
+    virtuals: true,
   }
 );
 

@@ -1,16 +1,14 @@
 const parseNumber = (value: unknown, defaultValue: number): number => {
-  const isString = typeof value === 'string';
-  if (!isString) return defaultValue;
+  if (typeof value !== 'string') return defaultValue;
 
-  const parsedNumber = parseInt(value);
-  if (Number.isNaN(parsedNumber) || parsedNumber <= 0) return defaultValue;
-  return parsedNumber;
+  const parsed = parseInt(value);
+
+  if (Number.isNaN(parsed) || parsed < 1) return defaultValue;
+
+  return parsed;
 };
 
-// const parseNumber = (value, defaultValue) =>
-//   parseInt(value) > 0 ? parseInt(value) : defaultValue;
-
-const parsePaginationParams = (page: string, perPage: string) => {
+const parsePaginationParams = (page: unknown, perPage: unknown) => {
   return { page: parseNumber(page, 1), perPage: parseNumber(perPage, 12) };
 };
 

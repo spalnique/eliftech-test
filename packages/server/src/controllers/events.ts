@@ -4,8 +4,8 @@ import { getEventById, getEvents } from '../services/events.ts';
 import parsePaginationParams from '../utils/parsePaginationParams.ts';
 
 export const getEventsController: RequestHandler = async (req, res, _next) => {
-  const reqPage: string = req.params.page;
-  const reqPerPage: string = req.params.perPage;
+  const reqPage = req.query.page;
+  const reqPerPage = req.query.perPage;
 
   const { page, perPage } = parsePaginationParams(reqPage, reqPerPage);
 
