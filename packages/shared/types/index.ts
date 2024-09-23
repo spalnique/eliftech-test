@@ -1,3 +1,5 @@
+import type { SORT_BY, SORT_ORDER } from '../../server/src/types/dict.enum.ts';
+
 export interface IParticipantDocument {
   _id?: string;
   fullName: string;
@@ -24,9 +26,21 @@ export interface IPagination {
   hasNextPage: boolean;
 }
 
-export interface IResponse {
+export interface IResponseData {
   status: number;
   message: string;
   data: IEventDocument[];
   pagination: IPagination;
+}
+
+export interface ISort {
+  sortBy: SORT_BY;
+  sortOrder: SORT_ORDER;
+}
+
+export interface IQuery {
+  page?: string;
+  perPage?: string;
+  sortBy?: SORT_BY;
+  sortOrder?: SORT_ORDER;
 }

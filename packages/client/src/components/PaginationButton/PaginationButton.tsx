@@ -1,18 +1,19 @@
 import clsx from 'clsx';
 
 import css from './PaginationButton.module.css';
+import type { FC, ReactNode, MouseEvent } from 'react';
 
-type PaginationButtonProps = {
+type Props = {
   textContent: string | number;
   isActive: boolean;
-  handleClick: (event: React.MouseEvent<HTMLElement>) => void;
+  handleClick: (event: MouseEvent<HTMLElement>) => void;
 };
 
-const PaginationButton: React.FC<PaginationButtonProps> = ({
+const PaginationButton: FC<Props> = ({
   textContent,
   isActive,
   handleClick,
-}): React.ReactNode => {
+}): ReactNode => {
   return (
     <button
       className={clsx(css.button, { [css.active]: isActive })}

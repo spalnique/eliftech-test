@@ -1,15 +1,11 @@
-import { Navigate, Route, Routes } from 'react-router-dom';
-
-import HomePage from './pages/HomePage/HomePage.tsx';
-import EventPage from './pages/EventPage/EventPage.tsx';
+import Router from './router/Router.tsx';
+import Layout from './shared/Layout.tsx';
 
 function App() {
   return (
-    <Routes>
-      <Route path='/' element={<HomePage />} />
-      <Route path='/event/:id' element={<EventPage />} />
-      <Route path='/*' element={<Navigate to='/' />} />
-    </Routes>
+    <Layout>
+      <Router />
+    </Layout>
   );
 }
 

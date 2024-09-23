@@ -3,22 +3,24 @@ import type { IPagination } from '@shared/types';
 import paginationControls from '../../helpers/paginationControls.ts';
 import PaginationButton from '../PaginationButton/PaginationButton.tsx';
 
+import type { FC, MouseEvent, ReactNode } from 'react';
+
 import css from './Pagination.module.css';
 
-type PaginationProps = {
+type Props = {
   pagination: IPagination;
   setPage: (value: number) => void;
   prevPage: () => void;
   nextPage: () => void;
 };
 
-const Pagination: React.FC<PaginationProps> = ({
+const Pagination: FC<Props> = ({
   pagination,
   setPage,
   prevPage,
   nextPage,
-}): React.ReactNode => {
-  const setPageHandler = (event: React.MouseEvent<HTMLSpanElement>): void => {
+}): ReactNode => {
+  const setPageHandler = (event: MouseEvent<HTMLElement>) => {
     const value = event.currentTarget.textContent;
     if (!value) return;
 

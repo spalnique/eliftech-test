@@ -3,7 +3,6 @@ import { useEffect, useState } from 'react';
 import type {
   IEventDocument,
   IPagination,
-  IResponse,
 } from '../../../shared/types/index.ts';
 
 const useFetch = (page: number = 1, perPage: number = 12) => {
@@ -21,9 +20,12 @@ const useFetch = (page: number = 1, perPage: number = 12) => {
         const response = await axios.get(`http://localhost:3000/event`, {
           params: { page, perPage },
         });
-        const data: IResponse = response.data;
-        setData(data.data);
-        setPagination(data.pagination);
+
+        const eventsData: IEventDocument[] = response.data.events;
+        const paginationData: IPagination = response.data.pagination;
+
+        setData(eventsData);
+        setPagination(paginationData);
       } catch (error) {
         if (error instanceof AxiosError) setError(error);
         console.error(error);

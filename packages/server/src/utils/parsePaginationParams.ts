@@ -1,3 +1,5 @@
+import type { IPagination, IQuery } from '../../../shared/types/index.ts';
+
 const parseNumber = (value: unknown, defaultValue: number): number => {
   if (typeof value !== 'string') return defaultValue;
 
@@ -8,7 +10,10 @@ const parseNumber = (value: unknown, defaultValue: number): number => {
   return parsed;
 };
 
-const parsePaginationParams = (page: unknown, perPage: unknown) => {
+const parsePaginationParams = (
+  query: IQuery
+): Pick<IPagination, 'page' | 'perPage'> => {
+  const { page, perPage } = query;
   return { page: parseNumber(page, 1), perPage: parseNumber(perPage, 12) };
 };
 
