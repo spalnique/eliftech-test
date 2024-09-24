@@ -1,24 +1,25 @@
 import axios, { AxiosError } from 'axios';
 import { useEffect, useState } from 'react';
-import type {
-  IEventDocument,
-  IPagination,
+import {
+  type IEventDocument,
+  type IPagination,
+  type IQuery,
 } from '../../../shared/types/index.ts';
 
-const useFetch = (page: number = 1, perPage: number = 12) => {
+const useFetch = (query: IQuery) => {
   const [data, setData] = useState<IEventDocument[] | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<AxiosError | null>(null);
   const [pagination, setPagination] = useState<IPagination | null>(null);
 
   useEffect(() => {
-    const fetchEvents = async (page: number) => {
+    const fetchEvents = async (query: IQuery) => {
       try {
         setError(null);
         setLoading(true);
 
         const response = await axios.get(`http://localhost:3000/event`, {
-          params: { page, perPage },
+          params: query,
         });
 
         const eventsData: IEventDocument[] = response.data.events;
@@ -33,8 +34,8 @@ const useFetch = (page: number = 1, perPage: number = 12) => {
         setLoading(false);
       }
     };
-    fetchEvents(page);
-  }, [page, perPage]);
+    fetchEvents(query);
+  }, [query]);
 
   return { data, pagination, loading, error };
 };

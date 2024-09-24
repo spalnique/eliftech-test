@@ -4,12 +4,14 @@ import css from './PaginationButton.module.css';
 import type { FC, ReactNode, MouseEvent } from 'react';
 
 type Props = {
-  textContent: string | number;
+  value?: number;
+  textContent: string;
   isActive: boolean;
-  handleClick: (event: MouseEvent<HTMLElement>) => void;
+  handleClick: (event: MouseEvent<HTMLButtonElement>) => void;
 };
 
 const PaginationButton: FC<Props> = ({
+  value,
   textContent,
   isActive,
   handleClick,
@@ -18,6 +20,7 @@ const PaginationButton: FC<Props> = ({
     <button
       className={clsx(css.button, { [css.active]: isActive })}
       type='button'
+      value={value}
       onClick={handleClick}>
       {textContent}
     </button>

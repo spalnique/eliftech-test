@@ -1,0 +1,70 @@
+.aside {
+  position: sticky;
+  top: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+  padding-top: 58px;
+  width: 250px;
+  height: 580px;
+}
+
+.perPageWrapper {
+  display: flex;
+  justify-content: space-between;
+}
+
+.sortByWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.sortOrderWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.fieldsetWrapper {
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 20px;
+  border: none;
+  border-bottom: 1px solid rgb(219, 219, 219);
+}
+
+.fieldsetWrapper:last-of-type {
+  border: none;
+}
+
+.label {
+  margin-bottom: 20px;
+  font-size: 12px;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.button {
+  text-transform: capitalize;
+  font-size: 12px;
+  color: black;
+  cursor: pointer;
+  padding: 5px;
+  border-radius: 6px;
+  min-width: 30px;
+  height: 30px;
+  background-color: transparent;
+  box-shadow: 0px 0px 10px 1px rgba(219, 219, 219, 0.62);
+  transition: box-shadow 250ms ease-in-out;
+}
+
+.button:hover {
+  scale: 1.01;
+  box-shadow: 0px 0px 10px 5px rgba(219, 219, 219, 0.62);
+}
+
+.active {
+  border: 1px solid rgb(0, 119, 255);
+  box-shadow: 0px 0px 5px 1px rgb(219, 219, 219);
+}

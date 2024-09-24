@@ -1,6 +1,9 @@
-import type { IParticipantDocument } from '../../../shared/types/index.ts';
+import {
+  SORT_ORDER,
+  SORT_BY,
+  type IParticipantDocument,
+} from '../../../shared/types/index.ts';
 import EventModel from '../db/models/event.ts';
-import { SORT_BY, SORT_ORDER } from '../types/dict.enum.ts';
 import { calculatePaginationData } from '../utils/calculatePaginationData.ts';
 
 export const getEvents = async ({

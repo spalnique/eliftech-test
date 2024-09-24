@@ -1,33 +1,37 @@
-import usePages from '../../hooks/usePages.ts';
+import type { FC, ReactNode } from 'react';
+
+import useQuery from '../../hooks/useQuery.ts';
 import useFetchEvents from '../../hooks/useFetchEvents.ts';
 
 import EventList from '../../components/EventList/EventList.tsx';
 import Pagination from '../../components/Pagination/Pagination.tsx';
-
-import type { FC, ReactNode } from 'react';
+import SortBar from '../../components/SortBar/SortBar.tsx';
 
 import css from './HomePage.module.css';
 
 const HomePage: FC = (): ReactNode => {
-  const perPage = 12;
-  const { page, setPage, prevPage, nextPage } = usePages();
-  const { data, pagination, loading, error } = useFetchEvents(page, perPage);
+  const { query, setQuery, prevPage, nextPage } = useQuery();
+  const { data, pagination, loading, error } = useFetchEvents(query);
 
   if (error) return <p>{error.message}</p>;
 
   return (
     <div className={css.wrapper}>
-      <h4 className={css.title}>Events</h4>
-      {loading && <p>Loading...</p>}
-      {data && <EventList events={data} />}
-      {pagination && (
-        <Pagination
-          pagination={pagination}
-          setPage={setPage}
-          prevPage={prevPage}
-          nextPage={nextPage}
-        />
-      )}
+      <SortBar query={query} setQuery={setQuery} />
+      <div className={css.content}>
+        <h4 className={css.title}>Events</h4>
+        {loading && <p>Loading...</p>}
+        {data && <EventList events={data} />}
+        {pagination && (
+          <Pagination
+            query={query}
+            pagination={pagination}
+            setQuery={setQuery}
+            prevPage={prevPage}
+            nextPage={nextPage}
+          />
+        )}
+      </div>
     </div>
   );
 };

@@ -1,4 +1,4 @@
-import type { IPagination } from '@shared/types';
+import type { IPagination, IQuery } from '@shared/types';
 
 import paginationControls from '../../helpers/paginationControls.ts';
 import PaginationButton from '../PaginationButton/PaginationButton.tsx';
@@ -9,28 +9,21 @@ import css from './Pagination.module.css';
 
 type Props = {
   pagination: IPagination;
-  setPage: (value: number) => void;
+  query: IQuery;
+  setQuery: (param: IQuery) => void;
   prevPage: () => void;
   nextPage: () => void;
 };
 
 const Pagination: FC<Props> = ({
   pagination,
-  setPage,
+  query,
+  setQuery,
   prevPage,
   nextPage,
 }): ReactNode => {
-  const setPageHandler = (event: MouseEvent<HTMLElement>) => {
-    const value = event.currentTarget.textContent;
-    if (!value) return;
-
-    const isString = typeof value === 'string';
-    if (!isString) return;
-
-    const isNumber = !Number.isNaN(parseInt(value));
-    if (!isNumber) return;
-
-    setPage(parseInt(value));
+  const setPageHandler = (e: MouseEvent<HTMLButtonElement>) => {
+    setQuery({ ...query, page: parseInt(e.currentTarget.value) });
   };
 
   const { page, totalPages, hasNextPage, hasPrevPage } = pagination;
@@ -52,7 +45,8 @@ const Pagination: FC<Props> = ({
         return (
           <PaginationButton
             key={i}
-            textContent={content}
+            textContent={content as string}
+            value={content as number}
             isActive={isActive}
             handleClick={setPageHandler}
           />

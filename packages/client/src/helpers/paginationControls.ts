@@ -1,8 +1,8 @@
 const paginationControls = (
   page: number,
   totalPages: number
-): (number | string)[] => {
-  const base = Array.from<string | number>({
+): (string | number)[] => {
+  const base = Array.from({
     length: totalPages < 6 ? totalPages : 6,
   });
 

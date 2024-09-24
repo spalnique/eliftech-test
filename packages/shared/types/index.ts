@@ -1,4 +1,19 @@
-import type { SORT_BY, SORT_ORDER } from '../../server/src/types/dict.enum.ts';
+export enum SORT_ORDER {
+  ASC = 'asc',
+  DESC = 'desc',
+}
+
+export enum SORT_BY {
+  TITLE = 'title',
+  DATE = 'date',
+  ORGANIZER = 'organizer',
+}
+
+export enum DICT {
+  perPage = 'perPage',
+  sortBy = 'sortBy',
+  sortOrder = 'sortOrder',
+}
 
 export interface IParticipantDocument {
   _id?: string;
@@ -39,8 +54,8 @@ export interface ISort {
 }
 
 export interface IQuery {
-  page?: string;
-  perPage?: string;
+  page?: number;
+  perPage?: number;
   sortBy?: SORT_BY;
   sortOrder?: SORT_ORDER;
 }
