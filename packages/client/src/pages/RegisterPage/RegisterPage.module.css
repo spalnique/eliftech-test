@@ -1,0 +1,25 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: 100%;
+  align-items: center;
+  padding: 40px 0;
+}
+
+.title {
+  position: relative;
+  width: 100%;
+  font-size: 24px;
+  font-weight: 600;
+  align-self: flex-start;
+}
+
+.title::after {
+  content: '';
+  position: absolute;
+  bottom: -5px;
+  width: 100%;
+  display: block;
+  border: 1px solid rgb(0, 119, 255);
+}

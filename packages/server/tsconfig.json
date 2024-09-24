@@ -1,8 +1,23 @@
 {
-  "extends": "../../tsconfig.base.json",
   "compilerOptions": {
+    "module": "CommonJS",
     "outDir": "dist",
-    "rootDir": "src"
+    "moduleResolution": "node",
+    "target": "ES2020",
+    "allowJs": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "noEmit": true,
+    "allowImportingTsExtensions": true,
+    "strict": true,
+    "baseUrl": "src",
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "paths": {
+      "@shared/types": ["../../shared/types/index.ts"]
+    }
   },
-  "include": ["src"]
+  "include": ["src", "../shared/**/*"],
+  "exclude": ["node_modules", "dist", "client"]
 }

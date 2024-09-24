@@ -1,19 +1,16 @@
 {
-  "name": "my-monorepo",
-  "private": true,
+  "name": "eliftech-monorepo",
+  "main": "index.js",
   "scripts": {
-    "build": "pnpm -r run build",
-    "dev": "concurrently \"pnpm --filter client dev\" \"pnpm --filter server dev\"",
-    "lint": "pnpm -r run lint"
+    "client": "cd packages/client && npm run dev",
+    "server": "cd packages/server && npm run dev",
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "devDependencies": {
-    "concurrently": "^7.0.0",
-    "eslint": "^8.0.0",
-    "prettier": "^3.3.3"
+    "concurrently": "^8.2.2"
   },
-  "pnpm": {
-    "packages": [
-      "packages/*"
-    ]
+  "dependencies": {
+    "prettier": "^3.3.3"
   }
 }

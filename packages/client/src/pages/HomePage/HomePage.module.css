@@ -1,0 +1,30 @@
+.wrapper {
+  display: flex;
+  gap: 40px;
+  padding: 40px 0;
+}
+
+.content {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  align-items: center;
+}
+
+.title {
+  position: relative;
+  width: 100%;
+  font-size: 24px;
+  font-weight: 600;
+  align-self: flex-start;
+}
+
+.title::after {
+  content: '';
+  position: absolute;
+  bottom: -5px;
+  width: 100%;
+  display: block;
+  border: 1px solid rgb(0, 119, 255);
+}
