@@ -4,6 +4,8 @@ import { redirect } from 'react-router-dom';
 
 import type { IEventDocument } from '../../../shared/types/index.ts';
 
+import { api_url } from '../constants/index.ts';
+
 const useFetchEventById = (id: string) => {
   const [event, setEvent] = useState<IEventDocument | null>(null);
   const [error, setError] = useState<AxiosError | null>(null);
@@ -17,7 +19,7 @@ const useFetchEventById = (id: string) => {
     const fetchEvent = async (id: string) => {
       try {
         setError(null);
-        const response = await axios.get(`http://localhost:3000/event/${id}`);
+        const response = await axios.get(`${api_url}/event/${id}`);
         const data = response.data;
         setEvent(data.data as IEventDocument);
         console.log(data.data);

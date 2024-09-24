@@ -1,10 +1,13 @@
 import axios, { AxiosError } from 'axios';
 import { useEffect, useState } from 'react';
+
 import {
   type IEventDocument,
   type IPagination,
   type IQuery,
 } from '../../../shared/types/index.ts';
+
+import { api_url } from '../constants/index.ts';
 
 const useFetch = (query: IQuery) => {
   const [data, setData] = useState<IEventDocument[] | null>(null);
@@ -18,7 +21,7 @@ const useFetch = (query: IQuery) => {
         setError(null);
         setLoading(true);
 
-        const response = await axios.get(`http://localhost:3000/event`, {
+        const response = await axios.get(`${api_url}/event`, {
           params: query,
         });
 

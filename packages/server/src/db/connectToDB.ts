@@ -1,12 +1,13 @@
 import mongoose from 'mongoose';
 import env from '../utils/env.ts';
-import { ENV_VARS } from '../types/ENV.enum.ts';
+
+import { DICT } from '../../../shared/types/index.ts';
 
 const connectToDB = async () => {
-  const DB_USER = env(ENV_VARS.DB_USER);
-  const DB_PWD = env(ENV_VARS.DB_PWD);
-  const DB_URL = env(ENV_VARS.DB_URL);
-  const DB_NAME = env(ENV_VARS.DB_NAME);
+  const DB_USER = env(DICT.DB_USER);
+  const DB_PWD = env(DICT.DB_PWD);
+  const DB_URL = env(DICT.DB_URL);
+  const DB_NAME = env(DICT.DB_NAME);
 
   const connection_uri = `mongodb+srv://${DB_USER}:${DB_PWD}@${DB_URL}/${DB_NAME}`;
 

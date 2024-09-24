@@ -4,6 +4,8 @@ import { useForm } from 'react-hook-form';
 
 import type { FC, ReactNode } from 'react';
 
+import { api_url } from '../../constants/index.ts';
+
 import css from './RegisterForm.module.css';
 
 type FormValues = {
@@ -25,7 +27,7 @@ const RegisterForm: FC<Props> = ({ id }): ReactNode => {
     const addParticipant = async (id: string) => {
       try {
         await axios.post(
-          'http://localhost:3000/event/participant/add',
+          `${api_url}/event/participant/add`,
           { participant },
           { params: { id } }
         );
