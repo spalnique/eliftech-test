@@ -66,3 +66,10 @@ export interface IQuery {
   sortBy?: SORT_BY;
   sortOrder?: SORT_ORDER;
 }
+
+export type FormValues = {
+  fullName: string;
+  email: string;
+  dob: string;
+  source: string;
+};

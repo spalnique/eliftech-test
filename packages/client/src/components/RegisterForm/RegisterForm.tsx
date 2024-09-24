@@ -1,15 +1,14 @@
-import axios, { AxiosError } from 'axios';
-import { useEffect, useState } from 'react';
+import { useRegisterParticipant } from '../../hooks/useRegisterParticipant.ts';
 import { Controller, useForm, type SubmitHandler } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
 import Flatpickr from 'react-flatpickr';
 import clsx from 'clsx';
 
 import type { FC, KeyboardEventHandler, MouseEventHandler } from 'react';
 import type { Hook as FlatPickrHook } from 'flatpickr/dist/types/options';
+import type { FormValues } from '../../../../shared/types/index.ts';
 
-import { yupResolver } from '@hookform/resolvers/yup';
 import { registerSchema } from '../../validation/index.ts';
-import { api_url } from '../../constants/index.ts';
 
 import 'flatpickr/dist/themes/light.css';
 import css from './RegisterForm.module.css';
@@ -19,13 +18,6 @@ enum Source {
   friend = 'friend',
   myself = 'myself',
 }
-
-type FormValues = {
-  fullName: string;
-  email: string;
-  dob: string;
-  source: string;
-};
 
 type Props = {
   id: string;
@@ -39,8 +31,7 @@ type Handlers = {
 };
 
 const RegisterForm: FC<Props> = ({ id }) => {
-  const [participant, setParticipant] = useState<FormValues | null>(null);
-  const [error, setError] = useState<AxiosError | null>(null);
+  const { setParticipant, error } = useRegisterParticipant(id);
 
   const {
     control,
@@ -82,26 +73,6 @@ const RegisterForm: FC<Props> = ({ id }) => {
       }
     },
   };
-
-  useEffect(() => {
-    const addParticipant = async (id: string) => {
-      try {
-        await axios.post(
-          `${api_url}/event/participant/add`,
-          { participant },
-          { params: { id } }
-        );
-
-        setParticipant(null);
-      } catch (err) {
-        if (err instanceof AxiosError) setError(err);
-        setParticipant(null);
-        console.error(err);
-      }
-    };
-
-    if (participant) addParticipant(id);
-  }, [participant, id]);
 
   if (error) return <p>{error.message}</p>;
 
