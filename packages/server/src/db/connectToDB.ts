@@ -18,7 +18,7 @@ const connectToDB = async () => {
   } catch (e) {
     console.error(e);
   } finally {
-    return { state: mongoose.connection.readyState };
+    return mongoose.connection.readyState;
   }
 };
 
