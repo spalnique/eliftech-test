@@ -1,4 +1,15 @@
-import type { SORT_BY, SORT_ORDER } from '../../server/src/types/dict.enum.ts';
+
+
+export enum SORT_BY {
+title = 'title';
+date = 'date';
+organizer = 'organizer'
+}
+
+export enum SORT_ORDER {
+ASC = 'asc';
+DESC = 'desc';
+}
 
 export interface IParticipantDocument {
   _id?: string;
