@@ -1,5 +1,4 @@
-import type { IQuery, ISort } from '../../../shared/types/index.ts';
-import { SORT_BY, SORT_ORDER } from '../types/dict.enum.ts';
+import type { IQuery, ISort, SORT_BY, SORT_ORDER } from '../../../shared/types/index.ts';
 
 const parseSortOrder = (sortOrder: SORT_ORDER): SORT_ORDER => {
   if (Object.values(SORT_ORDER).includes(sortOrder)) return sortOrder;
