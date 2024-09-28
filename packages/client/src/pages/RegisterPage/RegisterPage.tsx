@@ -1,11 +1,11 @@
 import { redirect, useParams } from 'react-router-dom';
 import RegisterForm from '../../components/RegisterForm/RegisterForm.tsx';
 
-import type { FC, ReactNode } from 'react';
+import type { FC } from 'react';
 
 import css from './RegisterPage.module.css';
 
-const RegisterPage: FC<null> = (): ReactNode => {
+const RegisterPage: FC = () => {
   const { id } = useParams();
 
   if (!id) {
