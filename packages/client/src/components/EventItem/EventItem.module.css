@@ -4,8 +4,8 @@
   padding: 20px;
   height: 180px;
   background-image: linear-gradient(
-    white 130px,
-    rgb(0, 119, 255) 120px,
+    white 125px,
+    rgb(0, 119, 255) 126px,
     rgb(0, 119, 255) 170px,
     rgb(255, 255, 160) 170px,
     rgb(255, 255, 160) 180px
@@ -36,8 +36,12 @@
   font-size: 14px;
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
 
 .link {
   color: white;
+  padding: 4px;
+  border: 0.5px solid white;
+  border-radius: 4px;
 }

@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import type { FormValues } from '../../../shared/types/index.ts';
 
 import { api_url } from '../constants/index.ts';
+import toast from 'react-hot-toast';
 
 export const useRegisterParticipant = (id: string) => {
   const [participant, setParticipant] = useState<FormValues | null>(null);
@@ -19,6 +20,10 @@ export const useRegisterParticipant = (id: string) => {
         );
 
         setParticipant(null);
+        toast.success("You've been successfully registered to the event", {
+          id,
+          // duration: 20000,
+        });
       } catch (err) {
         if (err instanceof AxiosError) {
           setError(err);

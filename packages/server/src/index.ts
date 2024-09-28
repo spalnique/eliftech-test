@@ -14,9 +14,9 @@ import pingSelf from './utils/pingSelf.ts';
   if (connectionState === 1) {
     app.listen(PORT, () => {
       console.log(`Server is running on PORT: ${PORT}`);
-      console.log(`Check status at: ${API_URL}:${PORT}/status`);
+      console.log(`Check status at: ${API_URL}/status`);
     });
 
-    setInterval(pingSelf, 180000);
+    setInterval(pingSelf, 600000);
   }
 })();

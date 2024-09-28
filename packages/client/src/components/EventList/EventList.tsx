@@ -1,13 +1,15 @@
 import EventItem from '../EventItem/EventItem.tsx';
 
-import type { IEventDocument } from '../../../../shared/types/index.ts';
-import type { FC, ReactNode } from 'react';
+import { IEventDocument } from '../../../../shared/types/index.ts';
+import { type FC } from 'react';
 
 import css from './EventList.module.css';
 
-type Props = { events: IEventDocument[] };
+type Props = {
+  events: IEventDocument[];
+};
 
-const EventList: FC<Props> = ({ events }): ReactNode => {
+const EventList: FC<Props> = ({ events }) => {
   return (
     <ul className={css.list}>
       {events.map((event) => {

@@ -1,13 +1,13 @@
 import clsx from 'clsx';
 
 import css from './PaginationButton.module.css';
-import type { FC, ReactNode, MouseEvent } from 'react';
+import type { FC, MouseEventHandler } from 'react';
 
 type Props = {
   value?: number;
   textContent: string;
   isActive: boolean;
-  handleClick: (event: MouseEvent<HTMLButtonElement>) => void;
+  handleClick: MouseEventHandler<HTMLButtonElement>;
 };
 
 const PaginationButton: FC<Props> = ({
@@ -15,10 +15,13 @@ const PaginationButton: FC<Props> = ({
   textContent,
   isActive,
   handleClick,
-}): ReactNode => {
+}) => {
   return (
     <button
-      className={clsx(css.button, { [css.active]: isActive })}
+      className={clsx({
+        [css.button]: textContent !== '...',
+        [css.active]: isActive,
+      })}
       type='button'
       value={value}
       onClick={handleClick}>

@@ -20,6 +20,12 @@
   gap: 10px;
 }
 
+.viewModeWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
 .sortOrderWrapper {
   display: flex;
   flex-direction: column;

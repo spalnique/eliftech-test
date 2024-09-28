@@ -1,42 +1,75 @@
 import clsx from 'clsx';
 
-import type { FC, MouseEventHandler, ReactNode } from 'react';
+import type { Dispatch, FC, MouseEventHandler, SetStateAction } from 'react';
 
 import {
   DICT,
   SORT_BY,
   SORT_ORDER,
-  type IQuery,
+  VIEW_MODE,
+  type IEventDocument,
 } from '../../../../shared/types/index.ts';
 
 import css from './SortBar.module.css';
+import { useAppContext } from '../../hooks/useAppContext.ts';
 
 type Props = {
-  setQuery: (query: IQuery) => void;
-  query: IQuery;
+  setEvents: Dispatch<SetStateAction<IEventDocument[]>>;
 };
 
-const SortBar: FC<Props> = ({ query, setQuery }): ReactNode => {
-  const perPageValues = [12, 24, 36, 48];
+type Handlers = {
+  click: MouseEventHandler<HTMLButtonElement>;
+  paginate: MouseEventHandler<HTMLButtonElement>;
+};
 
-  const handleClick: MouseEventHandler<HTMLFieldSetElement> = ({
-    currentTarget,
-    target,
-  }) => {
-    if (!(target instanceof HTMLButtonElement)) return;
-    setQuery({
-      ...query,
-      [currentTarget.name]: target.value,
-    });
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+const SortBar: FC<Props> = ({ setEvents }) => {
+  const perPageValues = [12, 24, 36, 48];
+  const { viewMode, setViewMode, query, setQuery } = useAppContext();
+
+  const handle: Handlers = {
+    click: ({ currentTarget }) => {
+      if (viewMode === VIEW_MODE.scroll) {
+        setEvents([]);
+      }
+      setQuery({
+        ...query,
+        page: 1,
+        [currentTarget.name]: currentTarget.value,
+      });
+
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    },
+
+    paginate: ({ currentTarget }) => {
+      if (currentTarget.name !== viewMode) {
+        setEvents([]);
+        setQuery({ ...query, page: 1, perPage: 12 });
+      }
+      setViewMode(currentTarget.value as VIEW_MODE);
+    },
   };
 
   return (
     <aside className={css.aside}>
-      <fieldset
-        className={css.fieldsetWrapper}
-        name={DICT.sortBy}
-        onClick={handleClick}>
+      <fieldset className={css.fieldsetWrapper}>
+        <label className={css.label}>View mode</label>
+        <div className={css.viewModeWrapper}>
+          {Object.values(VIEW_MODE).map((value) => (
+            <button
+              key={value}
+              className={clsx(css.button, {
+                [css.active]: viewMode === value,
+              })}
+              value={value}
+              type='button'
+              name={value}
+              onClick={handle.paginate}>
+              {value}
+            </button>
+          ))}
+        </div>
+      </fieldset>
+      <fieldset className={css.fieldsetWrapper}>
         <label className={css.label}>Sort by</label>
         <div className={css.sortByWrapper}>
           {Object.values(SORT_BY).map((value) => (
@@ -46,16 +79,15 @@ const SortBar: FC<Props> = ({ query, setQuery }): ReactNode => {
                 [css.active]: query.sortBy === value,
               })}
               value={value}
-              type='button'>
+              type='button'
+              name={DICT.sortBy}
+              onClick={handle.click}>
               {value}
             </button>
           ))}
         </div>
       </fieldset>
-      <fieldset
-        className={css.fieldsetWrapper}
-        name={DICT.sortOrder}
-        onClick={handleClick}>
+      <fieldset className={css.fieldsetWrapper}>
         <label className={css.label}>Sort order</label>
         <div className={css.sortOrderWrapper}>
           {Object.values(SORT_ORDER).map((value) => (
@@ -65,31 +97,34 @@ const SortBar: FC<Props> = ({ query, setQuery }): ReactNode => {
                 [css.active]: query.sortOrder === value,
               })}
               value={value}
-              type='button'>
+              type='button'
+              name={DICT.sortOrder}
+              onClick={handle.click}>
               {`${value}ending`}
             </button>
           ))}
         </div>
       </fieldset>
-      <fieldset
-        className={css.fieldsetWrapper}
-        name={DICT.perPage}
-        onClick={handleClick}>
-        <label className={css.label}>Results per page</label>
-        <div className={css.perPageWrapper}>
-          {perPageValues.map((value) => (
-            <button
-              key={value}
-              className={clsx(css.button, {
-                [css.active]: String(query.perPage) === String(value),
-              })}
-              value={value}
-              type='button'>
-              {value}
-            </button>
-          ))}
-        </div>
-      </fieldset>
+      {viewMode === VIEW_MODE.paginate && (
+        <fieldset className={css.fieldsetWrapper}>
+          <label className={css.label}>Results per page</label>
+          <div className={css.perPageWrapper}>
+            {perPageValues.map((value) => (
+              <button
+                key={value}
+                className={clsx(css.button, {
+                  [css.active]: String(query.perPage) === String(value),
+                })}
+                value={value}
+                type='button'
+                name={DICT.perPage}
+                onClick={handle.click}>
+                {value}
+              </button>
+            ))}
+          </div>
+        </fieldset>
+      )}
     </aside>
   );
 };

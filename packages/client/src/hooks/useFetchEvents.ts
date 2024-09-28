@@ -2,6 +2,7 @@ import axios, { AxiosError } from 'axios';
 import { useEffect, useState } from 'react';
 
 import {
+  VIEW_MODE,
   type IEventDocument,
   type IPagination,
   type IQuery,
@@ -9,14 +10,15 @@ import {
 
 import { api_url } from '../constants/index.ts';
 
-const useFetch = (query: IQuery) => {
-  const [data, setData] = useState<IEventDocument[] | null>(null);
+const useFetch = (viewMode: VIEW_MODE, query: IQuery) => {
+  const [events, setEvents] = useState<IEventDocument[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<AxiosError | null>(null);
   const [pagination, setPagination] = useState<IPagination | null>(null);
 
   useEffect(() => {
     const fetchEvents = async (query: IQuery) => {
+      const isScroll = viewMode === VIEW_MODE.scroll;
       try {
         setError(null);
         setLoading(true);
@@ -28,7 +30,11 @@ const useFetch = (query: IQuery) => {
         const eventsData: IEventDocument[] = response.data.events;
         const paginationData: IPagination = response.data.pagination;
 
-        setData(eventsData);
+        setEvents((prevEvents) => {
+          if (Math.ceil(prevEvents.length / query.perPage!) === query.page)
+            return prevEvents;
+          return isScroll ? [...prevEvents, ...eventsData] : eventsData;
+        });
         setPagination(paginationData);
       } catch (error) {
         if (error instanceof AxiosError) setError(error);
@@ -37,10 +43,11 @@ const useFetch = (query: IQuery) => {
         setLoading(false);
       }
     };
-    fetchEvents(query);
-  }, [query]);
 
-  return { data, pagination, loading, error };
+    if (!loading) fetchEvents(query);
+  }, [query, viewMode]);
+
+  return { events, pagination, loading, error, setEvents };
 };
 
 export default useFetch;

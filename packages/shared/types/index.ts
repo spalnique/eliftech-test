@@ -9,6 +9,11 @@ export enum SORT_BY {
   ORGANIZER = 'organizer',
 }
 
+export enum VIEW_MODE {
+  paginate = 'paginate',
+  scroll = 'scroll',
+}
+
 export enum DICT {
   perPage = 'perPage',
   sortBy = 'sortBy',
@@ -28,6 +33,8 @@ export interface IParticipantDocument {
   email: string;
   dob: string;
   source: string;
+  createdAt: string;
+  updatedAt: string;
 }
 
 export interface IEventDocument {

@@ -1,29 +1,26 @@
-import type { IPagination, IQuery } from '@shared/types';
+import type { IPagination } from '@shared/types';
 
 import paginationControls from '../../helpers/paginationControls.ts';
 import PaginationButton from '../PaginationButton/PaginationButton.tsx';
 
-import type { FC, MouseEvent, ReactNode } from 'react';
+import type { FC, MouseEventHandler } from 'react';
 
 import css from './Pagination.module.css';
+import { useAppContext } from '../../hooks/useAppContext.ts';
 
 type Props = {
   pagination: IPagination;
-  query: IQuery;
-  setQuery: (param: IQuery) => void;
-  prevPage: () => void;
-  nextPage: () => void;
 };
 
-const Pagination: FC<Props> = ({
-  pagination,
-  query,
-  setQuery,
-  prevPage,
-  nextPage,
-}): ReactNode => {
-  const setPageHandler = (e: MouseEvent<HTMLButtonElement>) => {
-    setQuery({ ...query, page: parseInt(e.currentTarget.value) });
+const Pagination: FC<Props> = ({ pagination }) => {
+  const { query, setQuery, prevPage, nextPage } = useAppContext();
+
+  const setPageHandler: MouseEventHandler<HTMLButtonElement> = ({
+    currentTarget,
+  }) => {
+    if (currentTarget.textContent === '...') return;
+
+    setQuery({ ...query, page: parseInt(currentTarget.value) });
   };
 
   const { page, totalPages, hasNextPage, hasPrevPage } = pagination;
@@ -42,6 +39,7 @@ const Pagination: FC<Props> = ({
 
       {controls.map((content, i) => {
         const isActive = content === page;
+
         return (
           <PaginationButton
             key={i}

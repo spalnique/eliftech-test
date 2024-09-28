@@ -5,12 +5,14 @@ import { redirect } from 'react-router-dom';
 import type { IEventDocument } from '../../../shared/types/index.ts';
 
 import { api_url } from '../constants/index.ts';
+import toast from 'react-hot-toast';
 
 const useFetchEventById = (id: string) => {
   const [event, setEvent] = useState<IEventDocument | null>(null);
   const [error, setError] = useState<AxiosError | null>(null);
 
   useEffect(() => {
+    toast.dismiss();
     if (!id) {
       redirect('/');
       return;
@@ -22,7 +24,6 @@ const useFetchEventById = (id: string) => {
         const response = await axios.get(`${api_url}/event/${id}`);
         const data = response.data;
         setEvent(data.data as IEventDocument);
-        console.log(data.data);
       } catch (err) {
         if (err instanceof AxiosError) setError(err);
         console.error(err);
