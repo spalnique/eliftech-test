@@ -3,7 +3,35 @@
   width: 100%;
   flex-direction: column;
   gap: 40px;
-  padding: 40px 0;
+  padding: 40px 0 40px;
+}
+
+.barsWrapper {
+  display: flex;
+  justify-content: center;
+  height: 35px;
+}
+
+.button {
+  display: flex;
+  justify-content: center;
+
+  align-items: center;
+  height: 35px;
+  width: 200px;
+  color: black;
+  cursor: pointer;
+  border-radius: 6px;
+  background-color: transparent;
+  box-shadow: 0px 0px 3px 1px rgb(219, 219, 219);
+  transition: all 250ms ease-in-out;
+}
+
+.button:hover {
+  color: white;
+  background-color: rgb(0, 119, 255);
+  scale: 1.01;
+  box-shadow: 0px 0px 5px 2px rgb(219, 219, 219);
 }
 
 .title {
