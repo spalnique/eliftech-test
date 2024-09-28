@@ -25,10 +25,6 @@ enum Source {
   myself = 'myself',
 }
 
-// type Props = {
-//   id: string;
-// };
-
 type Handlers = {
   submit: SubmitHandler<FormValues>;
   chooseDate: FlatPickrHook;
@@ -42,6 +38,7 @@ const RegisterForm: FC = () => {
   const backLinkRef = useRef(location.state?.from ?? '/');
 
   const { setParticipant, error } = useRegisterParticipant(id as string);
+  
   const {
     control,
     register,
