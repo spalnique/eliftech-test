@@ -16,7 +16,7 @@ const RegisterPage: FC<null> = (): ReactNode => {
   return (
     <div className={css.wrapper}>
       <h4 className={css.title}>Event registration</h4>
-      <RegisterForm id={id} />
+      <RegisterForm />
     </div>
   );
 };

@@ -1,6 +1,6 @@
 import { useRegisterParticipant } from '../../hooks/useRegisterParticipant.ts';
 import { Controller, useForm, type SubmitHandler } from 'react-hook-form';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useParams } from 'react-router-dom';
 import { yupResolver } from '@hookform/resolvers/yup';
 import Flatpickr from 'react-flatpickr';
 import clsx from 'clsx';
@@ -25,9 +25,9 @@ enum Source {
   myself = 'myself',
 }
 
-type Props = {
-  id: string;
-};
+// type Props = {
+//   id: string;
+// };
 
 type Handlers = {
   submit: SubmitHandler<FormValues>;
@@ -36,11 +36,12 @@ type Handlers = {
   selectSource: MouseEventHandler<HTMLButtonElement>;
 };
 
-const RegisterForm: FC<Props> = ({ id }) => {
+const RegisterForm: FC = () => {
+  const { id } = useParams();
   const location = useLocation();
   const backLinkRef = useRef(location.state?.from ?? '/');
 
-  const { setParticipant, error } = useRegisterParticipant(id);
+  const { setParticipant, error } = useRegisterParticipant(id as string);
   const {
     control,
     register,
