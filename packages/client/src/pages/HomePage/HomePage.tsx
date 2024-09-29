@@ -22,7 +22,7 @@ const HomePage: FC = () => {
   const handleScroll = useCallback(() => {
     const currentYPos = window.scrollY + window.innerHeight;
     const docHeight = document.documentElement.scrollHeight;
-    const offset = 300;
+    const offset = 400;
     if (
       currentYPos >= docHeight - offset &&
       pagination?.hasNextPage &&
