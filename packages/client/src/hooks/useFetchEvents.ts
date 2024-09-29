@@ -32,8 +32,11 @@ const useFetch = (viewMode: VIEW_MODE, query: IQuery) => {
         const paginationData: IPagination = response.data.pagination;
 
         setEvents((prevEvents) => {
-          // if (Math.ceil(prevEvents.length / query.perPage!) === query.page)
-          //   return prevEvents;
+          if (
+            isScroll &&
+            Math.ceil(prevEvents.length / query.perPage!) === query.page
+          )
+            return prevEvents;
           return isScroll ? [...prevEvents, ...eventsData] : eventsData;
         });
         setPagination(paginationData);
