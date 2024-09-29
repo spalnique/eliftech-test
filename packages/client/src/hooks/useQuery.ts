@@ -8,10 +8,11 @@ import {
 const useQuery = () => {
   const [query, setQuery] = useState<IQuery>({
     page: 1,
-    perPage: 12,
+    perPage: 24,
     sortBy: SORT_BY.DATE,
     sortOrder: SORT_ORDER.ASC,
   });
+
   const nextPage = () => {
     setQuery({ ...query, page: query.page! + 1 });
   };

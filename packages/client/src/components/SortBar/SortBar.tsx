@@ -1,6 +1,12 @@
 import clsx from 'clsx';
 
-import type { Dispatch, FC, MouseEventHandler, SetStateAction } from 'react';
+import {
+  useCallback,
+  type Dispatch,
+  type FC,
+  type MouseEventHandler,
+  type SetStateAction,
+} from 'react';
 
 import {
   DICT,
@@ -23,8 +29,13 @@ type Handlers = {
 };
 
 const SortBar: FC<Props> = ({ setEvents }) => {
-  const perPageValues = [12, 24, 36, 48];
   const { viewMode, setViewMode, query, setQuery } = useAppContext();
+  const basePerPage = Math.ceil((window.innerHeight - 180) / 200) * 3 - 3;
+
+  const perPageValues = useCallback(
+    () => Array.from({ length: 3 }, (_x, i) => (i + 1) * basePerPage),
+    []
+  )();
 
   const handle: Handlers = {
     click: ({ currentTarget }) => {
@@ -37,13 +48,20 @@ const SortBar: FC<Props> = ({ setEvents }) => {
         [currentTarget.name]: currentTarget.value,
       });
 
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+      const tId = setTimeout(() => {
+        window.scrollTo({ top: 70, behavior: 'smooth' });
+        clearTimeout(tId);
+      }, 500);
     },
 
     paginate: ({ currentTarget }) => {
-      if (currentTarget.name !== viewMode) {
+      if (currentTarget.name === VIEW_MODE.paginate) {
         setEvents([]);
-        setQuery({ ...query, page: 1, perPage: 12 });
+        setQuery({ ...query, page: 1, perPage: basePerPage });
+      }
+      if (currentTarget.name === VIEW_MODE.scroll) {
+        setEvents([]);
+        setQuery({ ...query, page: 1, perPage: 24 });
       }
       setViewMode(currentTarget.value as VIEW_MODE);
     },

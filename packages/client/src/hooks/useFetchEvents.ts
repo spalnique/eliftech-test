@@ -19,6 +19,7 @@ const useFetch = (viewMode: VIEW_MODE, query: IQuery) => {
   useEffect(() => {
     const fetchEvents = async (query: IQuery) => {
       const isScroll = viewMode === VIEW_MODE.scroll;
+
       try {
         setError(null);
         setLoading(true);
@@ -31,8 +32,8 @@ const useFetch = (viewMode: VIEW_MODE, query: IQuery) => {
         const paginationData: IPagination = response.data.pagination;
 
         setEvents((prevEvents) => {
-          if (Math.ceil(prevEvents.length / query.perPage!) === query.page)
-            return prevEvents;
+          // if (Math.ceil(prevEvents.length / query.perPage!) === query.page)
+          //   return prevEvents;
           return isScroll ? [...prevEvents, ...eventsData] : eventsData;
         });
         setPagination(paginationData);

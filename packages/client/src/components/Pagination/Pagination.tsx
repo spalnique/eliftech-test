@@ -7,20 +7,35 @@ import type { FC, MouseEventHandler } from 'react';
 
 import css from './Pagination.module.css';
 import { useAppContext } from '../../hooks/useAppContext.ts';
+import scrollToTop from '../../helpers/scrollToTop.ts';
 
 type Props = {
   pagination: IPagination;
 };
 
+type Handlers = {
+  set: MouseEventHandler<HTMLButtonElement>;
+  next: () => void;
+  prev: () => void;
+};
+
 const Pagination: FC<Props> = ({ pagination }) => {
   const { query, setQuery, prevPage, nextPage } = useAppContext();
 
-  const setPageHandler: MouseEventHandler<HTMLButtonElement> = ({
-    currentTarget,
-  }) => {
-    if (currentTarget.textContent === '...') return;
-
-    setQuery({ ...query, page: parseInt(currentTarget.value) });
+  const handle: Handlers = {
+    set: ({ currentTarget }) => {
+      if (currentTarget.textContent === '...') return;
+      setQuery({ ...query, page: parseInt(currentTarget.value) });
+      scrollToTop();
+    },
+    next: () => {
+      nextPage();
+      scrollToTop();
+    },
+    prev: () => {
+      prevPage();
+      scrollToTop();
+    },
   };
 
   const { page, totalPages, hasNextPage, hasPrevPage } = pagination;
@@ -33,7 +48,7 @@ const Pagination: FC<Props> = ({ pagination }) => {
         <PaginationButton
           textContent='Prev'
           isActive={false}
-          handleClick={prevPage}
+          handleClick={handle.prev}
         />
       )}
 
@@ -46,7 +61,7 @@ const Pagination: FC<Props> = ({ pagination }) => {
             textContent={content as string}
             value={content as number}
             isActive={isActive}
-            handleClick={setPageHandler}
+            handleClick={handle.set}
           />
         );
       })}
@@ -55,7 +70,7 @@ const Pagination: FC<Props> = ({ pagination }) => {
         <PaginationButton
           textContent='Next'
           isActive={false}
-          handleClick={nextPage}
+          handleClick={handle.next}
         />
       )}
     </div>
