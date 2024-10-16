@@ -3,7 +3,6 @@ import connectToDB from './db/connectToDB.ts';
 import env from './utils/env.ts';
 
 import { DICT } from '../../shared/types/index.ts';
-import pingSelf from './utils/pingSelf.ts';
 
 (async () => {
   const connectionState = await connectToDB();
@@ -16,7 +15,5 @@ import pingSelf from './utils/pingSelf.ts';
       console.log(`Server is running on PORT: ${PORT}`);
       console.log(`Check status at: ${API_URL}/status`);
     });
-
-    setInterval(pingSelf, 600000);
   }
 })();
